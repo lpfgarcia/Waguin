@@ -1,5 +1,6 @@
-gradio
 faiss-cpu
+gradio
+jupyter
 langchain
 langchain-community
 langchain-openai
