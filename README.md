@@ -11,7 +11,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru√
 
 2. **Criando o ambiente conda:**
 
-   Depois de instalar o Miniconda, crie um novo ambiente conda com Python 3.11 executando o seguinte comando no seu terminal:
+   Depois de instalar o Miniconda, crie um novo ambiente conda com Python 3.10 executando o seguinte comando no seu terminal:
 
    ```bash
    conda create -n rag python=3.10 -y
