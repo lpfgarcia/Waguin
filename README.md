@@ -33,7 +33,11 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
    pip install -r requirements.txt
    ```
 
-5. **Executando o Chainlit:**
+5. **Configurando a Chave da OpenAI:**
+
+   Para que o projeto funcione corretamente, você precisa adicionar sua chave da API da OpenAI no código. Abra o arquivo ``rag.py`` em um editor de texto, localize a variável ``OPENAI_API_KEY`` onde a chave da OpenAI deve ser inserida e adicione sua chave.
+
+6. **Executando o Chainlit:**
 
    Para executar o Chainlit, basta digitar o seguinte comando no terminal:
 
