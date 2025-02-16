@@ -1,8 +1,6 @@
 chainlit
 faiss-cpu
-jupyter
 langchain
 langchain-community
 langchain-openai
-tiktoken
 openai
