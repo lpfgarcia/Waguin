@@ -33,11 +33,11 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru√
    pip install -r requirements.txt
    ```
 
-5. **Executando o Notebook:**
+5. **Executando o Chainlit:**
 
-   Para iniciar o Jupyter Notebook, basta digitar o seguinte comando no terminal:
+   Para executar o Chainlit, basta digitar o seguinte comando no terminal:
 
    ```bash
-   jupyter notebook
+   chainlit run rag.py --port 8000 --watch
    ```
 
