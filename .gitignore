@@ -1,1 +1,5 @@
+__pycache__/
+.chainlit/
 .ipynb_checkpoints/
+chainlit.md
+vectorstore/
