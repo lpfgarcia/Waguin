@@ -12,24 +12,23 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 os.environ['OPENAI_API_KEY'] = ''
 
-def generate_embeddings():
+loader = CSVLoader('noticias.csv')
+text = loader.load()
+text_content = '\n'.join([doc.page_content for doc in text])
 
-    loader = CSVLoader('noticias.csv')
-    text = loader.load()
-    text_content = '\n'.join([doc.page_content for doc in text])
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
+texts = text_splitter.split_text(text_content)
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
-    texts = text_splitter.split_text(text_content)
-
-    metadatas = [{'source': f'{i}-pl'} for i in range(len(texts))]
+metadatas = [{'source': f'{i}-pl'} for i in range(len(texts))]
 
 
-    embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.from_texts(texts, OpenAIEmbeddings(), metadatas=metadatas)
-    vectorstore.save_local('vectorstore')
+embeddings = OpenAIEmbeddings()
+vectorstore = FAISS.from_texts(texts, OpenAIEmbeddings(), metadatas=metadatas)
+vectorstore.save_local('vectorstore')
 
 @cl.set_chat_profiles
 async def chat_profile():
+
     return [
         cl.ChatProfile(
             name='GPT-3.5',
@@ -97,6 +96,3 @@ async def on_message(message: cl.Message):
 
     # Envia a resposta para o usuário
     await cl.Message(content=answer).send()
-
-if __name__ == '__main__':
-    verificar_vectorstore()
