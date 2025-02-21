@@ -59,7 +59,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 ## Exemplos de Uso
 
-O **rag-saude** permite buscar informações sobre temas de saúde pública, entidades, investimentos e políticas do SUS. Exemplos de perguntas que podem ser feitas ao sistema:
+O **waguin** permite buscar informações sobre temas de saúde pública, entidades, investimentos e políticas do SUS. Exemplos de perguntas que podem ser feitas ao sistema:
 
 - **O que é a FioProsas?**
 - **O que é o Fonatrans?**
