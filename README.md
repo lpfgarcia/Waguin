@@ -6,7 +6,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 1. **Instalação do Ollama:**
 
-   Antes de começar, certifique-se de ter o Ollama instalado. Você pode instalar o Ollama a partir do site oficial: [Ollama](https://ollama.com/).
+   Antes de começar, certifique-se de ter o Ollama instalado. Você pode instalar o Ollama pelo site oficial: [Ollama](https://ollama.com/).
 
 2. **Download dos LLMs:**
 
@@ -17,7 +17,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 3. **Instalação do Miniconda:**
 
-   Antes de começar, certifique-se de ter o Miniconda instalado. Você pode baixar e instalar o Miniconda a partir do site oficial: [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+   Certifique-se de ter o Miniconda instalado. Você pode baixar e instalar o Miniconda a partir do site oficial: [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
 4. **Criando o ambiente conda:**
 
