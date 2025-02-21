@@ -1,6 +1,8 @@
+ollama
 chainlit
-faiss-cpu
 langchain
 langchain-community
+langchain-ollama
 langchain-openai
 openai
+faiss-cpu
