@@ -1,4 +1,4 @@
-# Waguin
+# waguin
 
 O Waguin é um assistente virtual da Fiocruz projetado para responder perguntas de forma objetiva e em português. Ele utiliza um sistema de Recuperação Aumentada por Geração (RAG) para buscar informações em documentos armazenados e melhorar a precisão das respostas. Os arquivos CSV são processados e transformados em um banco vetorial FAISS, permitindo uma busca eficiente de conteúdos relevantes. O usuário pode escolher entre diferentes modelos de IA, como GPT-4, GPT-3.5 e Llama3, garantindo flexibilidade entre precisão, custo e desempenho. Com a biblioteca Chainlit, o Waguin mantém o contexto da conversa, tornando a interação mais fluida e natural.
 
