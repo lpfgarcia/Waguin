@@ -1,8 +1,9 @@
-ollama
 chainlit
+duckduckgo-search
+faiss-cpu
 langchain
 langchain-community
 langchain-ollama
 langchain-openai
+ollama
 openai
-faiss-cpu
