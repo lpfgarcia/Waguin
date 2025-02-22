@@ -1,10 +1,8 @@
-import os, ollama
+import re, os, ollama
 import chainlit as cl
 
 from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.vectorstores import FAISS
-
-from openai import OpenAI
 
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -13,14 +11,17 @@ from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+from openai import OpenAI
+
 # Configurações
 os.environ['OPENAI_API_KEY'] = ''
 client = OpenAI()
-PATH = 'data'
 
+PATH = 'data'
 TEMPLATE = """
-Meu nome é Waguin. Sou um assistente virtual da Fiocruz.
-Responda de maneira clara, objetiva. Se não souber a resposta, diga que não sabe. Responda sempre em Português.
+Me chamo Waguin e sou assistente virtual da Fiocruz.
+Responda de maneira clara e objetiva só que foi perguntado. 
+Se não souber a resposta, diga que não sabe. Responda sempre em Português.
 Contexto:
 {context}
 
@@ -41,19 +42,22 @@ def load_csv_data(folder_path):
 
     return text_content
 
-def gpt_response(model, prompt):
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        )
-    return response.choices[0].message.content
+def choose_model(model, retriever, memory):
 
-def llama3_response(model, prompt):
-    response = ollama.chat(
-        model='llama3.2:3b', 
-        messages=[{'role': 'user', 'content': prompt}],
-        )
-    return response['message']['content']
+    match model:
+        case 'GPT-4o':
+            return gpt_chain('gpt-4o', retriever, memory)
+        case 'GPT-3.5':
+            return gpt_chain('gpt-3.5-turbo', retriever, memory)
+        case 'Llama3':
+            return llama_chain('llama3:8b', retriever, memory)
+        case 'Mistral':
+            return llama_chain('mistral:7b', retriever, memory)
+        case 'Deepseek':
+            return llama_chain('deepseek-r1:8b', retriever, memory)
+
+def recycle_answer(answer):
+    return re.sub(r"<think>.*?</think>\s*", "", answer, flags=re.DOTALL)
 
 def gpt_chain(model, retriever, memory):
     chain = ConversationalRetrievalChain.from_llm(
@@ -81,17 +85,27 @@ async def chat_profile():
         cl.ChatProfile(
             name='GPT-3.5',
             markdown_description='Eficiente e acessível para texto.',
-            icon='https://picsum.photos/200',
+            icon='public/chat/openai.png',
         ),
         cl.ChatProfile(
-            name='GPT-4',
+            name='GPT-4o',
             markdown_description='Preciso e criativo para tarefas complexas.',
-            icon='https://picsum.photos/250',
+            icon='public/chat/openai.png',
         ),
         cl.ChatProfile(
             name='Llama3',
-            markdown_description='Modelo open-source otimizado para velocidade e custo-benefício.',
-            icon='https://picsum.photos/300',
+            markdown_description='Open-source otimizado para velocidade e custo-benefício.',
+            icon='public/chat/llama.png',
+        ),
+        cl.ChatProfile(
+            name='Mistral',
+            markdown_description='Open-source avançado, com alta eficiência em processamento de texto e código.',
+            icon='public/chat/mistral.png',
+        ),
+        cl.ChatProfile(
+            name='Deepseek',
+            markdown_description='Open-source com foco em raciocínio lógico e eficiência computacional.',
+            icon='public/chat/deepseek.png',
         ),
     ]
 
@@ -100,7 +114,7 @@ async def on_chat_start():
 
     chat_profile = cl.user_session.get('chat_profile')
     await cl.Message(
-        content=f'Iniciando o chat usando o modelo {chat_profile} ...\nAgora você pode fazer perguntas!'
+        content=f'Iniciando o chat usando o modelo {chat_profile} ...\nEu sou o Waguin e você pode fazer perguntas!'
     ).send()
 
     embeddings = OpenAIEmbeddings()
@@ -113,13 +127,7 @@ async def on_chat_start():
         output_key='answer',
     )
 
-    if chat_profile == 'GPT-4':
-        chain = gpt_chain('gpt-4o', retriever, memory)
-    elif chat_profile == 'GPT-3.5':
-        chain = gpt_chain('gpt-3.5-turbo', retriever, memory)
-    else:
-        chain = llama_chain('llama3.2:3b', retriever, memory)
-
+    chain = choose_model(chat_profile, retriever, memory)
     cl.user_session.set('chain', chain)
 
 @cl.on_message
@@ -129,7 +137,7 @@ async def on_message(message: cl.Message):
         await message.reply('O sistema ainda não está pronto. Por favor, tente novamente mais tarde.')
         return
     response = await chain.ainvoke({'question': message.content})
-    answer = response['answer']
+    answer = recycle_answer(response['answer'])
     await cl.Message(content=answer).send()
 
 if not os.path.exists('vectorstore'):
