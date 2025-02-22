@@ -14,7 +14,9 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
    Depois de instalar o Ollama, certifique-se que você baixou os seguintes Modelos de Linguagem:
    ```bash
-      ollama pull llama3.2:3b
+      ollama pull llama3:8b
+      ollama pull mistral:7b
+      ollama pull deepseek-r1:8b
    ```
 
 3. **Instalação do Miniconda:**
@@ -61,6 +63,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 O **waguin** permite buscar informações sobre temas de saúde pública, entidades, investimentos e políticas do SUS. Exemplos de perguntas que podem ser feitas ao sistema:
 
+- **Qual o seu nome?**
 - **O que é a FioProsas?**
 - **O que é o Fonatrans?**
 - **Quem é Richarlls Martins?**
