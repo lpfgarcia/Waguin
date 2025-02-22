@@ -70,8 +70,8 @@ O **waguin** permite buscar informações sobre temas de saúde pública, entida
 - **Quanto será investido no Hospital Federal de Bonsucesso?**
 - **Quando foi criada a Força Nacional do SUS?**
 
-- - **/web Qual o tempo em Brasília?**
-- - **/web Quem é Wagner de Jesus Martins?**
+- **/web Qual o tempo em Brasília?**
+- **/web Quem é Wagner de Jesus Martins?**
 
 Essas perguntas podem ser feitas diretamente no sistema, que buscará informações relevantes em bases de dados confiáveis para fornecer respostas atualizadas e precisas.
 
