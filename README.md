@@ -14,9 +14,9 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
    Depois de instalar o Ollama, certifique-se que você baixou os seguintes Modelos de Linguagem:
    ```bash
-      ollama pull llama3:8b
-      ollama pull mistral:7b
-      ollama pull deepseek-r1:8b
+   ollama pull llama3:8b
+   ollama pull mistral:7b
+   ollama pull deepseek-r1:8b
    ```
 
 3. **Instalação do Miniconda:**
