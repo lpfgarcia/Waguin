@@ -1,6 +1,6 @@
 # Waguin
 
-O Waguin é um assistente virtual da Fiocruz projetado para responder perguntas de forma objetiva e em português. Ele utiliza um sistema de Recuperação Aumentada por Geração (RAG) para buscar informações em documentos armazenados e melhorar a precisão das respostas. Os arquivos CSV são processados e transformados em um banco vetorial FAISS, permitindo uma busca eficiente de conteúdos relevantes. O usuário pode escolher entre diferentes modelos de IA, como GPT-4, GPT-3.5 e Llama3, garantindo flexibilidade entre precisão, custo e desempenho. Com a biblioteca Chainlit, o Waguin mantém o contexto da conversa, tornando a interação mais fluida e natural.
+O Waguin é um assistente virtual da Fiocruz, projetado para responder perguntas de forma objetiva e em português, oferecendo um chat convencional, um agente web para buscas em tempo real e um sistema de Recuperação Aumentada por Geração (RAG) para consultar documentos armazenados. Os arquivos CSV são processados em um banco vetorial FAISS, garantindo buscas eficientes. O usuário pode escolher entre modelos como GPT-4, GPT-3.5, Llama3, Mistral e Deepseek, equilibrando precisão, custo e desempenho.
 
 ## Configuração do Ambiente
 
@@ -12,7 +12,7 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 2. **Download dos LLMs:**
 
-   Depois de instalar o Ollama, certifique-se que você baixou os seguintes Modelos de Linguagem:
+   Depois de instalar o Ollama, faça o download dos seguintes Modelos de Linguagem:
    ```bash
    ollama pull llama3:8b
    ollama pull mistral:7b
@@ -61,17 +61,30 @@ Para configurar o ambiente de desenvolvimento para este projeto, siga as instru�
 
 ## Exemplos de Uso
 
-O **waguin** permite buscar informações sobre temas de saúde pública, entidades, investimentos e políticas do SUS. Exemplos de perguntas que podem ser feitas ao sistema:
+O Waguin permite buscar informações sobre temas de saúde pública, entidades, investimentos e políticas do SUS. O sistema oferece três modos de interação:
 
-- **Qual o seu nome?**
-- **O que é a FioProsas?**
-- **O que é o Fonatrans?**
-- **Quem é Richarlls Martins?**
-- **Quanto será investido no Hospital Federal de Bonsucesso?**
-- **Quando foi criada a Força Nacional do SUS?**
+- ``/rag msg`` para buscar ``msg`` nos documentos armazenados.
+- ``/web msg`` para pesquisar ``msg`` na internet em tempo real.
+- ``msg`` para usar o chat de forma convencional.
+
+Exemplos de busca nos documentos armazenados:
+
+- **/rag O que é a FioProsas?**
+- **/rag O que é o Fonatrans?**
+- **/rag Quem é Richarlls Martins?**
+- **/rag Quanto será investido no Hospital Federal de Bonsucesso?**
+- **/rag Quando foi criada a Força Nacional do SUS?**
+
+Exemplos de pesquisa na internet:
 
 - **/web Qual o tempo em Brasília?**
 - **/web Quem é Wagner de Jesus Martins?**
+
+Exemplos de chat convencional:
+
+- **Qual o seu nome?**
+- **Quem é Santos Dumont?**
+- **Quem é Carlos Drummond de Andrade?**
 
 Essas perguntas podem ser feitas diretamente no sistema, que buscará informações relevantes em bases de dados confiáveis para fornecer respostas atualizadas e precisas.
 

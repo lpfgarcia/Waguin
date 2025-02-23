@@ -2,6 +2,8 @@ chainlit
 duckduckgo-search
 faiss-cpu
 langchain
+langchain-agents
+langchain-core
 langchain-community
 langchain-ollama
 langchain-openai
