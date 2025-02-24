@@ -25,9 +25,6 @@ os.environ['OPENAI_API_KEY'] = ''
 TEMPLATE = '''
 Você é o Waguin, um assistente virtual da Fiocruz.
 
-Aqui está o histórico da conversa:
-{chat_history}
-
 Contexto:
 {context}
 
@@ -50,7 +47,7 @@ models = {'GPT-3.5':'gpt-3.5-turbo',
 
 client = OpenAI()
 search_tool = DuckDuckGoSearchRun(max_results=15)
-prompt = PromptTemplate(template=TEMPLATE, input_variables=['chat_history', 'context', 'question'])
+prompt = PromptTemplate(template=TEMPLATE, input_variables=['context', 'question'])
 
 class EmptyRetriever(BaseRetriever):
     def get_relevant_documents(self, query):
@@ -151,14 +148,14 @@ async def on_message(message: cl.Message):
     cht_chain = cl.user_session.get('cht_chain')
 
     if '/rag' in message.content:
-        response = await rag_chain.ainvoke({'question':message.content, 'chat_history': memory.load_memory_variables({})['chat_history']})
+        response = await rag_chain.ainvoke({'question':message.content.replace('/rag', '').strip()})
         answer = recycle_answer(response['answer'])
     elif '/web' in message.content:
         agent = choose_agent(ChatOpenAI(model_name="gpt-4o"))
-        response =  agent.invoke({"input": message.content.replace('/web', '').strip() + ' lang:pt'})
+        response =  agent.invoke({"input": message.content.replace('/web', '').strip() + ' lang:pt-br'})
         answer = response['output']
     else:
-        response = await cht_chain.ainvoke({'question':message.content, 'chat_history': memory.load_memory_variables({})['chat_history']})
+        response = await cht_chain.ainvoke({'question':message.content})
         answer = recycle_answer(response['answer'])
 
     await cl.Message(content=answer).send()
